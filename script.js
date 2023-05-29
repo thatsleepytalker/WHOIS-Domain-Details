@@ -3,7 +3,7 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 
-domainNames = ['jain.software','sharemarketstudies.com'] // Write all the domain names you want to search for here...
+domainNames = ['jain.software'] // Write all the domain names you want to search for here...
 
 const csvWriter = createCsvWriter({
   path: 'whois_records.csv',
@@ -72,7 +72,7 @@ async function sendEmail() {
     });
   }
 
-schedule.scheduleJob('47 16 * * *', function(){
+schedule.scheduleJob('00 10 * * *', function(){
     Promise.all(domainNames.map(extractWhois))
     .then(() => {
     csvWriter
