@@ -3,6 +3,8 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 
+domainNames = ['sharemarketstudies.com','google.com'] // Write all the domain names you want to search for here...
+
 const csvWriter = createCsvWriter({
   path: 'whois_records.csv',
   header: [
@@ -37,12 +39,12 @@ async function sendEmail() {
 
     let testAccount = await nodemailer.createTestAccount();
     const emailConfig = {
-      host: 'smtp.ethereal.email', // Replace with your SMTP server
-      port: 587, // Replace with the SMTP server port
-      secure: false, // Set to true if using a secure connection (e.g., SSL/TLS)
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false, 
       auth: {
-        user: testAccount.user, // Replace with your email address
-        pass: testAccount.pass, // Replace with your email password or app-specific password
+        user: testAccount.user, 
+        pass: testAccount.pass, 
       }
     };
   
@@ -50,7 +52,7 @@ async function sendEmail() {
   
     const mailOptions = {
       from: emailConfig.auth.user,
-      to: 'gauravrathore701@gmail.com', // Replace with the recipient's email address
+      to: 'gauravrathore701@gmail.com',
       subject: 'Newly Registered Domain Details',
       html: `<h2>Domain name details are in attachment</h2>`,
       attachments: [{
@@ -71,8 +73,6 @@ async function sendEmail() {
   }
 
 schedule.scheduleJob('47 16 * * *', function(){
-   
-    domainNames = ['sharemarketstudies.com','google.com']
     Promise.all(domainNames.map(extractWhois))
     .then(() => {
     csvWriter
