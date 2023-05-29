@@ -3,7 +3,7 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 
-domainNames = ['sharemarketstudies.com','google.com'] // Write all the domain names you want to search for here...
+domainNames = ['jain.software','sharemarketstudies.com'] // Write all the domain names you want to search for here...
 
 const csvWriter = createCsvWriter({
   path: 'whois_records.csv',
